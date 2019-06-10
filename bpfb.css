@@ -1,0 +1,40 @@
+body {
+  margin: 0;
+  padding: 0;
+  background-color: orangered;
+}
+
+h1  {
+  text-align: center
+}
+
+table {
+  margin: auto;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+td {
+  border: 10px solid black;
+  padding: 0;
+  width: 100px;
+  height: 100px;
+}
+
+.container {
+  display: flex;
+  width: 1300px;
+  margin: auto;
+}
+
+.contained {
+  margin: auto;
+}
+
+.active {
+  background-color: lightgreen!important;
+}
+
+.done {
+  background-color: lightseagreen;
+}
