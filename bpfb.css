@@ -5,7 +5,11 @@ body {
 }
 
 h1  {
-  text-align: center
+  text-align: center;
+}
+
+button {
+  width: 300px;
 }
 
 table {
@@ -37,4 +41,13 @@ td {
 
 .done {
   background-color: lightseagreen;
+}
+
+.margined {
+  margin: 17px;
+}
+
+#harderRolls {
+  width: 70px;
+  height: 70px;
 }
