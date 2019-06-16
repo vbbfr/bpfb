@@ -1,3 +1,21 @@
+const settings = {
+  harderRolls: true
+};
+const field = [];
+// base
+const X = [20, 30, 40, 50, 60, 70, 80, 90, 100, 120];
+//bonus
+const Y = [0, 0, 0, 0 , 20, 25, 30, 35, 40, 2];
+
+function setField () {
+  for (i = 0; i < 5; i++) {
+    field[i] = [];
+    for (j = 0; j < 5; j++) {
+      field[i][j] = 0;
+    }
+  }
+}
+
 function drawGame () {
   let playarea = '';
 
@@ -19,9 +37,7 @@ function drawGame () {
   }
   playarea += '</table>';
 
-  document.getElementById('playarea').innerHTML += playarea;
-  document.getElementById('2_2').innerHTML = '<h1>X</h1';
-  document.getElementById('2_2').classList.add('done');
+  document.getElementById('playarea').innerHTML = playarea;
 
 
   let left = `
@@ -49,41 +65,41 @@ function drawGame () {
     left += `<tr><td><h1>${i+1}</h1></td></tr>`;
   }
   left += '</table>';
-  document.getElementById('left').innerHTML += left;
+  document.getElementById('left').innerHTML = left;
+
+  document.getElementById('harderRolls').checked = settings.harderRolls;
 }
 
-const field = [
-  [0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0],
-  [0, 0, 1, 0, 0],
-  [0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0]
-];
-// base
-const X = [20, 30, 40, 50, 60, 70, 80, 90, 100, 120];
-//bonus
-const Y = [0, 20, 0, 0 ,40, 35, 0, 30, 25, 2];
 let thrustCount = 0;
 let v = 0;
 let w = 0;
 let x = 0;
 let y = 0;
 
-function roll (sides) {
-  return Math.floor(Math.random() * sides)
+function roll (n, harderRolls) {
+  // x € [0, n]
+  if (harderRolls) {
+    // f(x) = x => F(x) = x^2 => x = Math.Sqrt(F)
+    // R = x * n = Math.Sqrt(F) * n
+    return Math.floor(Math.sqrt(Math.random()) * n);
+  } else {
+    // f(x) = 1 => F(x) = x => x = F
+    // R = x * n = F * n
+    return Math.floor(Math.random() * n)
+  }
 }
 
 function rolling () {
-  v = roll(5);
+  v = roll(5, false);
   document.getElementById('v').innerText = `V: ${v + 1}`;
-  w =roll(5);
-  document.getElementById('w').innerText = `w: ${w + 1}`;
+  w =roll(5, false);
+  document.getElementById('w').innerText = `W: ${w + 1}`;
 
-  x = roll(10);
+  x = roll(10, settings.harderRolls);
   document.getElementById('x').innerText = `X: ${x + 1}`;
   x = X[x];
   document.getElementById('X').innerText = `Base Thrusts: ${x}`;
-  y = roll(10);
+  y = roll(10, settings.harderRolls);
   document.getElementById('y').innerText = `Y: ${y + 1}`;
   if (y === 9) {
     y = x;
@@ -113,6 +129,7 @@ function done () {
   document.getElementById('total').innerHTML = `Your total amount of Thrusts so far: <u>${thrustCount}</u>`;
 
   if (isWon()) {
+    document.getElementById('resetBtn').removeAttribute('disabled');
     setTimeout(() => alert(`Congratulations, you have won the Boipussy Fucking Bingo! You completed it in ${thrustCount} Thrusts. Be proud of yourself!`), 0);
   }
 }
@@ -143,5 +160,28 @@ function isWon () {
   return won;
 }
 
+function toggleHarderRolls () {
+  if (settings.harderRolls) {
+    settings.harderRolls = false;
+    document.getElementById('harderRolls').checked = false;
+  } else {
+    settings.harderRolls = true;
+    document.getElementById('harderRolls').checked = true;
+  }
+}
 
-drawGame();
+function start () {
+  setField();
+  thrustCount = 0;
+  drawGame();  document.getElementById('v').innerText = 'V:'
+  document.getElementById('w').innerText = 'W:';
+  document.getElementById('x').innerText = 'X:';
+  document.getElementById('X').innerText = 'Base Thrusts:';
+  document.getElementById('y').innerText = 'Y:';
+  document.getElementById('Y').innerText = 'Bonus Thrusts:';
+  document.getElementById('sumRound').innerHTML = `Do your Thrusts to continue!`;
+  document.getElementById('total').innerHTML = `Your total amount of Thrusts so far: <u>0</u>`;
+  document.getElementById('resetBtn').setAttribute('disabled', true);
+}
+
+start();
