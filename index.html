@@ -11,19 +11,25 @@
 
     <div class="container">
       <div id="left" class="contained"></div>
-      <div id="playarea" class="contained"></div>
+      <div id="playarea" class="contained">Loading...</div>
       <div class="contained">
         <button id="rollBtn" onclick="rolling()"><h1>Roll!</h1></button>
-        <h1 id="v">V:</h1>
-        <h1 id="w">W:</h1>
-        <h1 id="x">X:</h1>
-        <h2 id="X">Base Thrusts:</h2>
-        <h1 id="y">Y:</h1>
-        <h2 id="Y">Bonus Thrusts:</h2>
-        <h1 id="sumRound">Do your Thrusts to continue!</h1>
+        <h1 id="v"></h1>
+        <h1 id="w"></h1>
+        <h1 id="x"></h1>
+        <h2 id="X"></h2>
+        <h1 id="y"></h1>
+        <h2 id="Y"></h2>
+        <h1 id="sumRound"></h1>
         <button id="doneBtn" onclick="done()" disabled><h1>Done!</h1></button>
-        <h1 id="total">Your total amount of Thrusts so far: 0</h1>
+        <h1 id="total"></h1>
       </div>
+    </div>
+
+    <div class="container">
+      <button id="resetBtn" onclick="start()" disabled class="margined"><h1>Reset</h1></button>
+      <h1>Harder Rolls:</h1>
+      <input type="checkbox" id="harderRolls" onclick="toggleHarderRolls()" class="margined">
     </div>
 
 
